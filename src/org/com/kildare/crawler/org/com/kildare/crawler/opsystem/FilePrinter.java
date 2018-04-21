@@ -1,5 +1,7 @@
 package org.com.kildare.crawler.org.com.kildare.crawler.opsystem;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.hslf.extractor.PowerPointExtractor;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
@@ -15,7 +17,15 @@ public class FilePrinter implements PrintFileData {
 
     @Override
     public void printPDF(File file) {
-
+        try {
+            PDDocument doc = PDDocument.load(file);
+            PDFTextStripper textStripper = new PDFTextStripper();
+            System.out.println("Reading File: " + file.getName());
+            System.out.println(textStripper.getText(doc));
+            System.out.println("\nEnd reading file: " + file.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
